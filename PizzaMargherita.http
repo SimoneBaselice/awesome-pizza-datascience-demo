@@ -1,0 +1,38 @@
+POST http://localhost:8080/pizza-types
+Content-Type: application/json
+
+{
+  "pizzaId": "MARG",
+  "name": "margherita",
+  "description": "la pizza classica buona",
+  "ingredients": [
+    {
+      "ingredientId": "MOZZ-T1",
+      "quantity": {
+        "value": 200,
+        "unit": "gram"
+      }
+    },
+    {
+      "ingredientId": "POM-T5",
+      "quantity": {
+        "value": 100,
+        "unit": "gram"
+      }
+    }
+  ],
+  "recipe": {
+    "summary": "Fai la pizza",
+    "steps": [
+      "Fai l'impasto",
+      "Metti il pomodoro",
+      "Metti la mozzarella",
+      "Butta la pizza"
+    ]
+  },
+  "preparationTimeMinutes": 10,
+  "image": "margherita.jpeg",
+  "isActive": true
+}
+
+###

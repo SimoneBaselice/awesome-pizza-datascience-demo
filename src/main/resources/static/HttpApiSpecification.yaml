@@ -1,0 +1,789 @@
+openapi: 3.0.2
+info:
+  title: Awesome Pizza Portal
+  version: 1.0.0
+  description: A demo api for webscience
+servers:
+  - url: http://localhost:8080/
+    description: local dev environment
+paths:
+  /clients/temp-users:
+    get:
+      summary: Temporary users collection
+      tags:
+        - clients
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TemporaryUserClient'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-all-temp-users
+      description: Get all the temporary user
+    post:
+      summary: Create temporary user
+      tags:
+        - clients
+      operationId: create-temp-user
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemporaryUserClient'
+        '406':
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemporaryUserClient'
+        description: ''
+      description: |
+        Create a temporary user
+  '/clients/temp-users/{id}':
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Temporary user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemporaryUserClient'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-temp-user
+      tags:
+        - clients
+    put:
+      summary: Edit temporary user
+      tags:
+        - clients
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemporaryUserClient'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '406':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: edit-temp-user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemporaryUserClient'
+  /clients/pizzaioli:
+    get:
+      summary: Pizzaioli collection
+      tags:
+        - clients
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PizzaioloClient'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-all-pizzaioli
+      description: Get all the temporary user
+    post:
+      summary: Create pizzaiolo
+      tags:
+        - clients
+      operationId: create-pizzaiolo
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PizzaioloClient'
+        '406':
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PizzaioloClient'
+        description: ''
+      description: |
+        Create a pizzaiolo
+    parameters: []
+  '/clients/pizzaioli/{id}':
+    get:
+      summary: Pizzaiolo
+      tags:
+        - clients
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PizzaioloClient'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-pizzaiolo
+    put:
+      summary: Edit temporary user
+      tags:
+        - clients
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PizzaioloClient'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '406':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: edit-pizzaiolo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PizzaioloClient'
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+  /orders:
+    get:
+      summary: Orders collection
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-all-orders
+      tags:
+        - OrdersAndProduction
+    post:
+      summary: Create order
+      tags:
+        - OrdersAndProduction
+      operationId: create-order
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+  '/orders/{id}':
+    get:
+      summary: Order
+      tags:
+        - OrdersAndProduction
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-order
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    delete:
+      summary: Cancel order
+      tags:
+        - OrdersAndProduction
+      operationId: cancel-order
+      responses:
+        '202':
+          description: Accepted
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+  '/orders/{id}/statusInfo':
+    get:
+      summary: Informations on order status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderStatusInfo'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-status-info-for-order
+      tags:
+        - OrdersAndProduction
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    put:
+      summary: Change order status
+      tags:
+        - OrdersAndProduction
+      operationId: change-status-for-order
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderStatusInfo'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newStatus:
+                  type: string
+                  enum:
+                    - ReadyOrderStatus
+                    - DeliveredOrderStatus
+  /orders/statusInfo:
+    get:
+      summary: Informations on all order status
+      tags:
+        - OrdersAndProduction
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderStatusInfo'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-status-info-for-all-orders
+  /pizza-types:
+    get:
+      summary: Pizza types
+      tags:
+        - PizzaCatalog
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PizzaType'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-all-pizza-types
+    post:
+      summary: Create pizza type
+      tags:
+        - PizzaCatalog
+      operationId: create-pizza-type
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PizzaType'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PizzaType'
+  '/pizza-types/{id}':
+    get:
+      summary: Pizza type
+      tags:
+        - PizzaCatalog
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PizzaType'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-pizza-type
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    put:
+      summary: Edit pizza type
+      tags:
+        - PizzaCatalog
+      operationId: edit-pizza-type
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PizzaType'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PizzaType'
+        description: ''
+components:
+  schemas:
+    Error:
+      title: Root Type for Error
+      description: ''
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          format: int32
+          type: integer
+          readOnly: true
+        detail:
+          type: string
+        instance:
+          type: string
+      example:
+        type: /errors/overlapping-booking-request
+        title: Overlapping booking request
+        status: 409
+        detail: The requested booking timeframe overlaps with another planned booking.
+        instance: /booking
+    TemporaryUserClient:
+      type: object
+      properties:
+        clientType:
+          type: string
+          x-discriminator: PizzaioloClient
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+        email:
+          type: string
+        creationDate:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - clientType
+    RegisteredUserClient:
+      type: object
+      properties:
+        clientType:
+          type: string
+          x-discriminator: RegisteredUserClient
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+        email:
+          type: string
+        creationDate:
+          type: string
+          format: date-time
+          readOnly: true
+        CodFiscale:
+          type: string
+      required:
+        - clientType
+    PizzaioloClient:
+      type: object
+      properties:
+        clientType:
+          type: string
+          x-discriminator: PizzaioloClient
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+        email:
+          type: string
+        creationDate:
+          type: string
+          format: date-time
+          readOnly: true
+        additionalInfo:
+          type: object
+      required:
+        - clientType
+      description: ''
+    Client:
+      oneOf:
+        - $ref: '#/components/schemas/PizzaioloClient'
+        - $ref: '#/components/schemas/TemporaryUserClient'
+        - $ref: '#/components/schemas/RegisteredUserClient'
+      discriminator:
+        propertyName: clientType
+        mapping:
+          PizzaioloClient: '#/components/schemas/PizzaioloClient'
+          TemporaryUserClient: '#/components/schemas/TemporaryUserClient'
+          RegisteredUserClient: '#/components/schemas/RegisteredUserClient'
+    Order:
+      title: Order
+      x-stoplight:
+        id: 9ixcjfn9odmlc
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        pizzaTypeId:
+          type: string
+        notes:
+          type: string
+        schedulingMode:
+          $ref: '#/components/schemas/SchedulingMode'
+        orderCreationDateTime:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - userId
+        - pizzaTypeId
+        - schedulingMode
+    SchedulingMode:
+      oneOf:
+        - $ref: '#/components/schemas/PlannedSchedulingMode'
+        - $ref: '#/components/schemas/AsSoonAspossibleSchedulingMode'
+      discriminator:
+        propertyName: mode
+        mapping:
+          PlannedSchedulingMode: '#/components/schemas/PlannedSchedulingMode'
+          AsSoonAspossibleSchedulingMode: '#/components/schemas/AsSoonAspossibleSchedulingMode'
+    PlannedSchedulingMode:
+      title: PlannedSchedulingMode
+      x-stoplight:
+        id: dtjr8z2gpuxky
+      type: object
+      properties:
+        mode:
+          type: string
+          x-discriminator: PlannedSchedulingMode
+        plannedDateTime:
+          type: string
+          format: date-time
+      required:
+        - mode
+        - plannedDateTime
+    AsSoonAspossibleSchedulingMode:
+      title: AsSoonAspossibleSchedulingMode
+      type: object
+      properties:
+        mode:
+          type: string
+          x-discriminator: AsSoonAspossibleSchedulingMode
+      required:
+        - mode
+      x-stoplight:
+        id: 89d27ddd6818d
+    OrderStatus:
+      oneOf:
+        - $ref: '#/components/schemas/ReceivedOrderStatus'
+        - $ref: '#/components/schemas/CancelledOrderStatus'
+        - $ref: '#/components/schemas/ScheduledOrderStatus'
+        - $ref: '#/components/schemas/CookingOrderStatus'
+        - $ref: '#/components/schemas/ReadyOrderStatus'
+        - $ref: '#/components/schemas/DeliveredOrderStatus'
+      discriminator:
+        propertyName: status
+        mapping:
+          ReceivedOrderStatus: '#/components/schemas/ReceivedOrderStatus'
+          CancelledOrderStatus: '#/components/schemas/CancelledOrderStatus'
+          ScheduledOrderStatus: '#/components/schemas/ScheduledOrderStatus'
+          CookingOrderStatus: '#/components/schemas/CookingOrderStatus'
+          ReadyOrderStatus: '#/components/schemas/ReadyOrderStatus'
+          DeliveredOrderStatus: '#/components/schemas/DeliveredOrderStatus'
+    ReceivedOrderStatus:
+      title: ReceivedOrderStatus
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: ReceivedOrderStatus
+        orderId:
+          type: integer
+          format: int64
+        statusEnteredDateTime:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - status
+        - orderId
+    CancelledOrderStatus:
+      title: CancelledOrderStatus
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: CancelledOrderStatus
+        orderId:
+          type: integer
+          format: int64
+        statusEnteredDateTime:
+          type: string
+          format: date-time
+          readOnly: true
+        reason:
+          type: string
+      required:
+        - status
+        - orderId
+    ScheduledOrderStatus:
+      title: ScheduledOrderStatus
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: ScheduledOrderStatus
+        orderId:
+          type: integer
+          format: int64
+        statusEnteredDateTime:
+          type: string
+          format: date-time
+          readOnly: true
+        scheduledCookingStartDateTime:
+          type: string
+          format: date-time
+        AssignedPizzaioloId:
+          type: integer
+          format: int64
+      required:
+        - status
+        - orderId
+    CookingOrderStatus:
+      title: CookingOrderStatus
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: CookingOrderStatus
+        orderId:
+          type: integer
+          format: int64
+        statusEnteredDateTime:
+          type: string
+          format: date-time
+          readOnly: true
+        AssignedPizzaioloId:
+          type: integer
+          format: int64
+      required:
+        - status
+        - orderId
+    ReadyOrderStatus:
+      title: ReadyOrderStatus
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: ReadyOrderStatus
+        orderId:
+          type: integer
+          format: int64
+        statusEnteredDateTime:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - status
+        - orderId
+    DeliveredOrderStatus:
+      title: DeliveredOrderStatus
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: DeliveredOrderStatus
+        orderId:
+          type: integer
+          format: int64
+        statusEnteredDateTime:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - status
+        - orderId
+    OrderStatusInfo:
+      title: StatusInfo
+      type: object
+      properties:
+        order:
+          $ref: '#/components/schemas/Order'
+        statusInfo:
+          $ref: '#/components/schemas/OrderStatus'
+    PizzaType:
+      title: PizzaType
+      x-stoplight:
+        id: 9ys2lzyrsgvud
+      type: object
+      properties:
+        pizzaId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        ingredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/IngredientQuantity'
+        recipe:
+          type: object
+          properties:
+            summary:
+              type: string
+            steps:
+              type: array
+              items:
+                type: string
+        preparationTimeMinutes:
+          type: integer
+          format: int32
+        image:
+          type: string
+        isActive:
+          type: boolean
+    IngredientQuantity:
+      title: IngredientQuantity
+      x-stoplight:
+        id: 2l3m9zbf6br5z
+      type: object
+      properties:
+        ingredientId:
+          type: string
+        quantity:
+          type: object
+          properties:
+            value:
+              type: number
+              format: float
+            unit:
+              $ref: '#/components/schemas/IngredientUnit'
+    IngredientUnit:
+      title: IngredientUnit
+      x-stoplight:
+        id: g65hwmu4v2kic
+      type: string
+      enum:
+        - kilogram
+        - gram
+        - litre
+      default: gram
+  responses:
+    ErrorResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: ''
+  securitySchemes:
+    Authenticated:
+      scheme: bearer
+      type: http
