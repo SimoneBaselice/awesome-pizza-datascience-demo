@@ -2,9 +2,8 @@ package it.simonebaselice.webscience.awesomepizza.catalogservice.controller;
 
 import it.simonebaselice.webscience.awesomepizza.catalogservice.model.pizzatype.PizzaType;
 import it.simonebaselice.webscience.awesomepizza.catalogservice.model.pizzatype.PizzaTypeManager;
-import it.simonebaselice.webscience.awesomepizza.catalogservice.model.pizzatype.PizzaTypeUtils;
+import it.simonebaselice.webscience.awesomepizza.catalogservice.model.pizzatype.PizzaTypeDtoUtils;
 import it.simonebaselice.webscience.awesomepizza.generated.http.controller.PizzaTypesApi;
-import it.simonebaselice.webscience.awesomepizza.generated.http.model.OrderStatusInfoDto;
 import it.simonebaselice.webscience.awesomepizza.generated.http.model.PizzaTypeDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +38,7 @@ public class PizzaCatalogController implements PizzaTypesApi {
         @Valid PizzaTypeDto pizzaTypeDto
     ) {
         PizzaType entity = pizzaTypeManager.createNewAndUpdate(pizzaTypeDto.getPizzaId(), pizzaTypeDto);
-        return new ResponseEntity<>(PizzaTypeUtils.buildDto(entity), HttpStatus.CREATED);
+        return new ResponseEntity<>(PizzaTypeDtoUtils.buildPizzaTypeDto(entity), HttpStatus.CREATED);
     }
 
     /**
@@ -59,7 +58,7 @@ public class PizzaCatalogController implements PizzaTypesApi {
         String id, @Valid PizzaTypeDto pizzaTypeDto
     ) {
         PizzaType entity = pizzaTypeManager.update(pizzaTypeDto.getPizzaId(), pizzaTypeDto);
-        return new ResponseEntity<>(PizzaTypeUtils.buildDto(entity), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(PizzaTypeDtoUtils.buildPizzaTypeDto(entity), HttpStatus.ACCEPTED);
     }
 
     /**
@@ -71,7 +70,7 @@ public class PizzaCatalogController implements PizzaTypesApi {
     @Override
     public ResponseEntity<List<PizzaTypeDto>> getAllPizzaTypes() {
         return new ResponseEntity<>(
-            pizzaTypeManager.getAll().stream().map(PizzaTypeUtils::buildDto).collect(Collectors.toList()),
+            pizzaTypeManager.getAll().stream().map(PizzaTypeDtoUtils::buildPizzaTypeDto).collect(Collectors.toList()),
             HttpStatus.OK
         );
 
@@ -90,7 +89,7 @@ public class PizzaCatalogController implements PizzaTypesApi {
     public ResponseEntity<PizzaTypeDto> getPizzaType(
         String id
     ) {
-        return new ResponseEntity<>(PizzaTypeUtils.buildDto(pizzaTypeManager.getById(id)), HttpStatus.OK);
+        return new ResponseEntity<>(PizzaTypeDtoUtils.buildPizzaTypeDto(pizzaTypeManager.getById(id)), HttpStatus.OK);
     }
 
 }

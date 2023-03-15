@@ -10,9 +10,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PizzaTypeUtils {
+public class PizzaTypeDtoUtils {
 
-    public static PizzaTypeDto buildDto(PizzaType entity) {
+    public static PizzaTypeDto buildPizzaTypeDto(PizzaType entity) {
         return new PizzaTypeDto()
             .pizzaId(entity.getPizzaId())
             .name(entity.getName())

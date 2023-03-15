@@ -68,7 +68,7 @@ public class PizzaType implements Identifiable<String> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(PizzaType.class);
+        return Objects.hash(PizzaType.class, this.getPizzaId());
     }
 
     @Override

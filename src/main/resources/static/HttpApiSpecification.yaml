@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: A demo api for webscience
 servers:
-  - url: http://localhost:8080/
+  - url: 'http://localhost:8080/'
     description: local dev environment
 paths:
   /clients/temp-users:
@@ -239,7 +239,8 @@ paths:
       operationId: get-order
     parameters:
       - schema:
-          type: string
+          type: integer
+          format: int64
         name: id
         in: path
         required: true
@@ -278,7 +279,8 @@ paths:
         - OrdersAndProduction
     parameters:
       - schema:
-          type: string
+          type: integer
+          format: int64
         name: id
         in: path
         required: true
@@ -313,6 +315,7 @@ paths:
                   enum:
                     - ReadyOrderStatus
                     - DeliveredOrderStatus
+                    - CookingOrderStatus
   /orders/statusInfo:
     get:
       summary: Informations on all order status
@@ -528,6 +531,10 @@ components:
         id: 9ixcjfn9odmlc
       type: object
       properties:
+        orderId:
+          type: integer
+          format: int64
+          writeOnly: true
         userId:
           type: integer
           format: int64
@@ -545,6 +552,7 @@ components:
         - userId
         - pizzaTypeId
         - schedulingMode
+      description: ''
     SchedulingMode:
       oneOf:
         - $ref: '#/components/schemas/PlannedSchedulingMode'
@@ -718,6 +726,9 @@ components:
           $ref: '#/components/schemas/Order'
         statusInfo:
           $ref: '#/components/schemas/OrderStatus'
+      required:
+        - order
+        - statusInfo
     PizzaType:
       title: PizzaType
       x-stoplight:
